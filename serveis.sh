@@ -2,7 +2,7 @@
 #coding=utf8 
 
 #       
-#       Copyright 2015 Dàrent <darent@alfantech.tk>
+#       Copyright 2015 Dàrent <ignasidonet@openmailbox.org>
 #       
 #       This program is free software; you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
@@ -393,10 +393,10 @@ function IsHeatEngineOn(){
 	fi
 	}
 
-# openstack-murano-api:
+# murano-api:
 function IsMuranoApiOn(){
-        muranoapistatus=`service openstack-murano-api status | tr "/" " " | tr -s " " | cut -d " " -f 5`
-        if [ "$muranoapistatus" == "running" ]
+        muranoapistatus=`service murano-api status | tr "/" " " | tr -s " " | cut -d " " -f 2`
+        if [ "$muranoapistatus" == "start" ]
                 then
                         colormuranoapi=$green
                         muranoapi="SI"
@@ -405,10 +405,10 @@ function IsMuranoApiOn(){
                         muranoapi="NO"
         fi
         }
-# openstack-murano-engine:
+# -murano-engine:
 function IsMuranoEngineOn(){
-        muranoenginestatus=`service openstack-murano-engine status | tr "/" " " | tr -s " " | cut -d " " -f 5`
-        if [ "$muranoenginestatus" == "running" ]
+        muranoenginestatus=`service murano-engine status | tr "/" " " | tr -s " " | cut -d " " -f 2`
+        if [ "$muranoenginestatus" == "start" ]
                 then
                         colormuranoengine=$green
                         muranoengine="SI"
@@ -504,9 +504,9 @@ IsHeatEngineOn
 echo -e "   Esta heat-engine en marxa?                     $colorheatengine $heatengine\033[0m. Introdueix \e[00;31mhen\e[00m per canviar l'estat."
 echo -e "$red Serveis Murano$nocolor:"
 IsMuranoApiOn
-echo -e "   Esta openstack-murano-api en marxa?            $colormuranoapi $muranoapi\033[0m. Introdueix \e[00;31mmap\e[00m per canviar l'estat."
+echo -e "   Esta murano-api en marxa?                      $colormuranoapi $muranoapi\033[0m. Introdueix \e[00;31mmap\e[00m per canviar l'estat."
 IsMuranoEngineOn
-echo -e "   Esta openstack-murano-engine en marxa?         $colormuranoengine $muranoengine\033[0m. Introdueix \e[00;31mmen\e[00m per canviar l'estat."
+echo -e "   Esta murano-engine en marxa?                   $colormuranoengine $muranoengine\033[0m. Introdueix \e[00;31mmen\e[00m per canviar l'estat."
 
 
 echo
@@ -781,7 +781,7 @@ fi
 if [ "$opcio" == "map" ]
         then
                 if [ "$muranoapi" = "NO" ]
-                        then service openstack-murano-api restart
+                        then service murano-api restart
                 else service openstack-murano-api stop
                 fi
 fi
@@ -789,7 +789,7 @@ fi
 if [ "$opcio" == "men" ]
         then
                 if [ "$muranoengine" = "NO" ]
-                        then service openstack-murano-engine restart
+                        then service murano-engine restart
                 else service openstack-murano-engine stop
                 fi
 fi
