@@ -1,6 +1,5 @@
 #!/bin/bash
 #coding=utf8 
-#aaaaaa
 #       
 #       Copyright 2015 Dàrent <darent@alfantech.tk>
 #       
